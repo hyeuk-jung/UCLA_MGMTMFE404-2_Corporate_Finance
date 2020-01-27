@@ -1,0 +1,279 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+<style type="text/css">
+.knitr .inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.rimage .left {
+  text-align: left;
+}
+.rimage .right {
+  text-align: right;
+}
+.rimage .center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.str {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.std {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+        <title>hwtemplate.html</title>
+        <meta name="KEYWORDS" content="...">
+        <meta name="AUTHOR" content="Hyeuk Jung">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="hw.css">
+        <style>
+          table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+          }
+          td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+          }
+          tr:nth-child(even) {
+            background-color: #dddddd;
+          }
+        </style>
+    </head>
+
+    <body>
+        <div class="fluid-row" id="header">
+            <h1 class="title"> Project 1 - Indexes </h1>
+            <h4 class="author"><i> Hyeuk Jung </i></h4>
+            <h4 class="date"><i> January 19, 2019 </i></h4>
+        </div>
+
+        <div id="executive_summary">
+            <h2> Executive Summary </h2>
+                <p> We are interested to learn how stocks perform in terms of excess rates of return when they are actually paying a dividend. (The cum to ex-dates are noted for each stock in CRSP.) What happened to the stock return (minus the S&P500 on the same day) from days -20 through day +20, each day by day? Line up all stock excess returns on the event dates, and calculate the mean across all stock-days. This is the day 0 event mean excess rate of return. Eventually, your result will be 41 mean excess rates of return, that you can graph with relative day on the x-axis and mean rate of return (across all excess returns) on the y-axis. You can do this assignment only for calendar years after 2010 to make it simpler. (O: How does each stock's rate of return relate to the amount of the dividend it actually paid?).
+                <br>To test the performance of each portfolio, we used the data from 1973/01/01 to 2015/01/01 and answered the following key questions:
+                    <ol>
+                      <li> Arithmetic rate of return of S&P500 </li>
+                      <li> Geometric rate of return of S&P500 </li>
+                      <li> Excess rate of return of S&P500 above 1) the prevailing short rate, 2) the 30-day, 3) the 1-year, and 4) the 5-year Treasury rates (in arithmetic and geometric form) </li>
+                      <li> How would each of these four self-financed strategies have performed?" 
+                           <br>(Does overlapping the longer-term series lead to different inference?) </li>
+                    </ol>
+                </p>
+                
+                <p> From the results, we concluded that the five-year strategies outformed the others.
+        </div>
+
+        <div id="data_source">
+            <h2> Data Source </h2>
+                <ol>
+                  <li> S&P500 index: Value-weighted rate of return of S&P500 including dividends.
+                       <br>(WRDS -> CRSP -> Annual Update -> Index/S&P 500 Indexes -> CRSP Index File on the S&P 500.) </li>
+                  <li> Prevailing short rate: Federal funds rate
+                       <br>(WRDS -> Federal Reserve Bank -> Interest Rates -> Interest Rates (Federal Reserve, H15 report)) </li>
+                  <li> Treasury rates: Monthly and annual returns of US Treasury indexes
+                       <br>(WRDS -> CRSP -> Annual Update -> Index / Treasury and Inflation -> US Treasury and Inflation Indexes) </li>
+                </ol>
+        </div>
+
+        <div id="key_statistics">
+            <h2> Tables and Figures </h2>
+            <h3> 1. Rate of Returns of S&P500 </h3>
+            <table>
+                <thead> <tr> <th></th> <th>Daily</th> <th>Monthly</th> <th>Annual</th> <th>5-Year (1975~2014)</th> </tr> </thead>
+                <tbody>
+                    <tr> <th>Arithmetic</th> <td>0.1133412</td> <td>0.1109118</td> <td>0.1192814</td> <td>0.1878368</td> </tr>
+                    <tr> <th>Geometric</th> <td>0.1033690</td> <td>0.1035023</td> <td>0.1035023</td> <td>0.1220944</td> </tr>
+                </tbody>
+            </table>
+            
+            <h3> 2. Excess Rate of Returns of S&P500 </h3>
+            <table>
+                <thead> <tr> <th></th> <th>Daily</th> <th>Monthly</th> <th>Annual</th> <th>5-Year (1975~2014)</th> </tr> </thead>
+                <tbody>
+                    <tr> <th>Arithmetic</th> <td>0.05195451</td> <td>0.06140517</td> <td>0.05654931</td> <td>0.09879048</td> </tr>
+                    <tr> <th>Geometric</th> <td>0.03781546</td> <td>0.05038317</td> <td>0.03949998</td> <td>0.05279528</td> </tr>
+                </tbody>
+            </table>
+            
+        </div>
+
+        <div id="code">
+            <h2> Computer code </h2>
+<div class="chunk" id="unnamed-chunk-1"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl com">#</span>
+<span class="hl com"># MGMTMFE404-2 Corporate Finance and Risk Management</span>
+<span class="hl com"># HW 1 (Indexes)</span>
+<span class="hl com"># Hyeuk Jung (005259560)</span>
+
+<span class="hl com"># Libraries</span>
+<span class="hl kwd">library</span><span class="hl std">(xts)</span>
+</pre></div>
+<div class="message"><pre class="knitr r">## Loading required package: zoo
+</pre></div>
+<div class="message"><pre class="knitr r">## 
+## Attaching package: 'zoo'
+</pre></div>
+<div class="message"><pre class="knitr r">## The following objects are masked from 'package:base':
+## 
+##     as.Date, as.Date.numeric
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com">##### Load S&amp;P500 and Treasury rates ---------------------</span>
+<span class="hl com">##### S&amp;P 500</span>
+<span class="hl com"># CRSP -&gt; Annual Update -&gt; Index/S&amp;P 500 Indexes -&gt; CRSP Index File on the S&amp;P 500</span>
+<span class="hl com"># Using value-weighted rate of return of S&amp;P500 including dividends</span>
+<span class="hl std">df</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">read.csv</span><span class="hl std">(</span><span class="hl str">&quot;snp500.csv&quot;</span><span class="hl std">,</span> <span class="hl kwc">header</span> <span class="hl std">= T)</span>
+<span class="hl kwd">row.names</span><span class="hl std">(df)</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.Date</span><span class="hl std">(</span><span class="hl kwd">as.character</span><span class="hl std">(df</span><span class="hl opt">$</span><span class="hl std">caldt),</span> <span class="hl str">&quot;%Y%m%d&quot;</span><span class="hl std">)</span>
+<span class="hl std">df</span><span class="hl opt">$</span><span class="hl std">caldt</span> <span class="hl kwb">&lt;-</span> <span class="hl kwa">NULL</span>
+<span class="hl std">snp500</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.xts</span><span class="hl std">(df)</span>
+
+<span class="hl std">snp_daily</span> <span class="hl kwb">&lt;-</span> <span class="hl std">snp500[</span><span class="hl str">&quot;1973-01-01/2015-01-01&quot;</span><span class="hl std">]</span> <span class="hl com"># from 1/1/1973 through 1/1/2015</span>
+<span class="hl std">snp_monthly</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">apply.monthly</span><span class="hl std">(snp_daily,</span> <span class="hl kwa">function</span><span class="hl std">(</span><span class="hl kwc">x</span><span class="hl std">)</span> <span class="hl kwd">prod</span><span class="hl std">(</span><span class="hl num">1</span> <span class="hl opt">+</span> <span class="hl std">x)</span> <span class="hl opt">-</span> <span class="hl num">1</span><span class="hl std">)</span>
+<span class="hl std">snp_annual</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">apply.yearly</span><span class="hl std">(snp_daily,</span> <span class="hl kwa">function</span><span class="hl std">(</span><span class="hl kwc">x</span><span class="hl std">)</span> <span class="hl kwd">prod</span><span class="hl std">(</span><span class="hl num">1</span> <span class="hl opt">+</span> <span class="hl std">x)</span> <span class="hl opt">-</span> <span class="hl num">1</span><span class="hl std">)</span>
+<span class="hl com"># 5-yr return, 1975 ~ 2014</span>
+<span class="hl std">snp_5y</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">vector</span><span class="hl std">()</span>
+<span class="hl com">#index_1y &lt;- endpoints(snp_daily, &quot;years&quot;, 1)</span>
+<span class="hl std">index_5y</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">endpoints</span><span class="hl std">(snp_daily,</span> <span class="hl str">&quot;years&quot;</span><span class="hl std">,</span> <span class="hl num">5</span><span class="hl std">)</span>
+<span class="hl kwa">for</span><span class="hl std">(i</span> <span class="hl kwa">in</span> <span class="hl num">2</span><span class="hl opt">:</span><span class="hl std">(</span><span class="hl kwd">length</span><span class="hl std">(index_5y)</span><span class="hl opt">-</span><span class="hl num">1</span><span class="hl std">)) {</span>
+<span class="hl com">#snp_5y[i] &lt;- prod(1 + snp_daily[(index_5y[i]+1):index_5y[i+1]])^(1/5) - 1</span>
+  <span class="hl std">snp_5y[i]</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">prod</span><span class="hl std">(</span><span class="hl num">1</span> <span class="hl opt">+</span> <span class="hl std">snp_daily[(index_5y[i]</span><span class="hl opt">+</span><span class="hl num">1</span><span class="hl std">)</span><span class="hl opt">:</span><span class="hl std">index_5y[i</span><span class="hl opt">+</span><span class="hl num">1</span><span class="hl std">]])</span> <span class="hl opt">-</span> <span class="hl num">1</span>
+<span class="hl std">}</span>
+<span class="hl std">snp_5y</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">matrix</span><span class="hl std">(snp_5y,</span> <span class="hl kwc">nrow</span> <span class="hl std">=</span> <span class="hl kwd">length</span><span class="hl std">(snp_5y),</span> <span class="hl kwc">ncol</span> <span class="hl std">=</span> <span class="hl num">1</span><span class="hl std">,</span>
+                 <span class="hl kwc">dimnames</span> <span class="hl std">=</span> <span class="hl kwd">list</span><span class="hl std">(</span> <span class="hl kwd">as.character</span><span class="hl std">(</span><span class="hl kwd">index</span><span class="hl std">(snp_daily[index_5y[</span><span class="hl opt">-</span><span class="hl num">1</span><span class="hl std">]])),</span> <span class="hl str">&quot;5yr ret.&quot;</span><span class="hl std">))</span>
+<span class="hl std">snp_5y</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.xts</span><span class="hl std">(snp_5y)</span>
+<span class="hl std">snp_5y</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">na.omit</span><span class="hl std">(snp_5y)</span>
+
+<span class="hl com">##### Treasuries</span>
+<span class="hl com"># Prevailing short rate: Federal funds rate</span>
+<span class="hl com">### Federal Reserve Bank -&gt; Interest Rates -&gt; Interest Rates (Federal Reserve, H15 report)</span>
+<span class="hl std">df2</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">read.csv</span><span class="hl std">(</span><span class="hl str">&quot;federalfunds.csv&quot;</span><span class="hl std">,</span> <span class="hl kwc">header</span> <span class="hl std">= T)</span>
+<span class="hl kwd">row.names</span><span class="hl std">(df2)</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.Date</span><span class="hl std">(</span><span class="hl kwd">as.character</span><span class="hl std">(df2</span><span class="hl opt">$</span><span class="hl std">date),</span> <span class="hl str">&quot;%Y%m%d&quot;</span><span class="hl std">)</span>
+<span class="hl std">df2</span><span class="hl opt">$</span><span class="hl std">date</span> <span class="hl kwb">&lt;-</span> <span class="hl kwa">NULL</span>
+<span class="hl std">fed_daily</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.xts</span><span class="hl std">(df2)[</span><span class="hl str">&quot;1973-01-01/2015-01-01&quot;</span><span class="hl std">]</span>
+<span class="hl std">fed_daily</span> <span class="hl kwb">&lt;-</span> <span class="hl std">(</span><span class="hl num">1</span><span class="hl opt">+</span> <span class="hl std">fed_daily</span><span class="hl opt">$</span><span class="hl std">FF_O</span><span class="hl opt">/</span><span class="hl num">100</span><span class="hl std">)</span><span class="hl opt">^</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl opt">/</span><span class="hl num">252</span><span class="hl std">)</span> <span class="hl opt">-</span> <span class="hl num">1</span>
+<span class="hl std">fed_daily</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">na.omit</span><span class="hl std">(fed_daily)</span>
+
+<span class="hl com"># 30-Day Treasury</span>
+<span class="hl com">### CRSP -&gt; Annual Update -&gt; Index / Treasury and Inflation -&gt; US Treasury and Inflation Indexes</span>
+<span class="hl std">df3</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">read.csv</span><span class="hl std">(</span><span class="hl str">&quot;treasury_month.csv&quot;</span><span class="hl std">,</span> <span class="hl kwc">header</span> <span class="hl std">= T)</span>
+<span class="hl kwd">row.names</span><span class="hl std">(df3)</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.Date</span><span class="hl std">(</span><span class="hl kwd">as.character</span><span class="hl std">(df3</span><span class="hl opt">$</span><span class="hl std">caldt),</span> <span class="hl str">&quot;%Y%m%d&quot;</span><span class="hl std">)</span>
+<span class="hl std">df3</span><span class="hl opt">$</span><span class="hl std">caldt</span> <span class="hl kwb">&lt;-</span> <span class="hl kwa">NULL</span>
+<span class="hl std">trea_monthly</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.xts</span><span class="hl std">(df3)</span><span class="hl opt">$</span><span class="hl std">t30ret[</span><span class="hl str">&quot;1973-01-01/2015-01-01&quot;</span><span class="hl std">]</span>
+<span class="hl std">trea_monthly</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">na.omit</span><span class="hl std">(trea_monthly)</span>
+<span class="hl com"># 1-Year Treasury</span>
+<span class="hl std">df4</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">read.csv</span><span class="hl std">(</span><span class="hl str">&quot;treasury_annual.csv&quot;</span><span class="hl std">,</span> <span class="hl kwc">header</span> <span class="hl std">= T)</span>
+<span class="hl kwd">row.names</span><span class="hl std">(df4)</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.Date</span><span class="hl std">(</span><span class="hl kwd">as.character</span><span class="hl std">(df4</span><span class="hl opt">$</span><span class="hl std">caldt),</span> <span class="hl str">&quot;%Y%m%d&quot;</span><span class="hl std">)</span>
+<span class="hl std">df4</span><span class="hl opt">$</span><span class="hl std">caldt</span> <span class="hl kwb">&lt;-</span> <span class="hl kwa">NULL</span>
+<span class="hl std">treasury</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.xts</span><span class="hl std">(df4)[</span><span class="hl str">&quot;1973-01-01/2015-01-01&quot;</span><span class="hl std">]</span>
+<span class="hl std">trea_annual</span> <span class="hl kwb">&lt;-</span> <span class="hl std">treasury</span><span class="hl opt">$</span><span class="hl std">b1ret</span>
+<span class="hl com"># 5-Year Treasury, 1975 ~ 2014</span>
+<span class="hl std">trea_5y</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">vector</span><span class="hl std">()</span>
+<span class="hl std">index_5y</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">endpoints</span><span class="hl std">(treasury</span><span class="hl opt">$</span><span class="hl std">b5ret,</span> <span class="hl str">&quot;years&quot;</span><span class="hl std">,</span> <span class="hl num">5</span><span class="hl std">)</span>
+<span class="hl kwa">for</span><span class="hl std">(i</span> <span class="hl kwa">in</span> <span class="hl num">2</span><span class="hl opt">:</span><span class="hl std">(</span><span class="hl kwd">length</span><span class="hl std">(index_5y)</span><span class="hl opt">-</span><span class="hl num">1</span><span class="hl std">)) {</span>
+  <span class="hl std">trea_5y[i]</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">prod</span><span class="hl std">(</span><span class="hl num">1</span> <span class="hl opt">+</span> <span class="hl std">treasury</span><span class="hl opt">$</span><span class="hl std">b5ret[(index_5y[i]</span><span class="hl opt">+</span><span class="hl num">1</span><span class="hl std">)</span><span class="hl opt">:</span><span class="hl std">(index_5y[i</span><span class="hl opt">+</span><span class="hl num">1</span><span class="hl std">])])</span> <span class="hl opt">-</span> <span class="hl num">1</span>
+<span class="hl std">}</span>
+<span class="hl std">trea_5y</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">matrix</span><span class="hl std">(trea_5y,</span> <span class="hl kwc">nrow</span> <span class="hl std">=</span> <span class="hl kwd">length</span><span class="hl std">(trea_5y),</span> <span class="hl kwc">ncol</span> <span class="hl std">=</span> <span class="hl num">1</span><span class="hl std">,</span>
+                  <span class="hl kwc">dimnames</span> <span class="hl std">=</span> <span class="hl kwd">list</span><span class="hl std">(</span> <span class="hl kwd">as.character</span><span class="hl std">(</span><span class="hl kwd">index</span><span class="hl std">(treasury</span><span class="hl opt">$</span><span class="hl std">b5ret[index_5y[</span><span class="hl opt">-</span><span class="hl num">1</span><span class="hl std">]])),</span> <span class="hl str">&quot;5yr ret.&quot;</span><span class="hl std">))</span>
+<span class="hl std">trea_5y</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.xts</span><span class="hl std">(trea_5y)</span>
+<span class="hl std">trea_5y</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">na.omit</span><span class="hl std">(trea_5y)</span>
+
+
+<span class="hl com">##### Questions ---------------------</span>
+<span class="hl com"># 1. Arithmetic &amp; geometric historical mean rate of return for daily, monthly, annual, and for 5-year returns</span>
+<span class="hl std">snp_mean_d_ari</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">mean</span><span class="hl std">(snp_daily)</span><span class="hl opt">*</span><span class="hl num">252</span>
+<span class="hl std">snp_mean_d_geo</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">prod</span><span class="hl std">(</span><span class="hl num">1</span> <span class="hl opt">+</span> <span class="hl std">snp_daily)</span><span class="hl opt">^</span><span class="hl std">(</span><span class="hl num">252</span><span class="hl opt">/</span><span class="hl kwd">length</span><span class="hl std">(snp_daily))</span> <span class="hl opt">-</span> <span class="hl num">1</span>
+
+<span class="hl std">snp_mean_m_ari</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">mean</span><span class="hl std">(snp_monthly)</span><span class="hl opt">*</span><span class="hl num">12</span>
+<span class="hl std">snp_mean_m_geo</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">prod</span><span class="hl std">(</span><span class="hl num">1</span> <span class="hl opt">+</span> <span class="hl std">snp_monthly)</span><span class="hl opt">^</span><span class="hl std">(</span><span class="hl num">12</span><span class="hl opt">/</span><span class="hl kwd">length</span><span class="hl std">(snp_monthly))</span> <span class="hl opt">-</span> <span class="hl num">1</span>
+
+<span class="hl std">snp_mean_y_ari</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">mean</span><span class="hl std">(snp_annual)</span>
+<span class="hl std">snp_mean_y_geo</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">prod</span><span class="hl std">(</span><span class="hl num">1</span> <span class="hl opt">+</span> <span class="hl std">snp_annual)</span><span class="hl opt">^</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl opt">/</span><span class="hl kwd">length</span><span class="hl std">(snp_annual))</span> <span class="hl opt">-</span> <span class="hl num">1</span>
+
+<span class="hl std">snp_mean_5y_ari</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">mean</span><span class="hl std">(snp_5y)</span><span class="hl opt">/</span><span class="hl num">5</span>
+<span class="hl std">snp_mean_5y_geo</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">prod</span><span class="hl std">(</span><span class="hl num">1</span> <span class="hl opt">+</span> <span class="hl std">snp_5y)</span><span class="hl opt">^</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl opt">/</span><span class="hl kwd">length</span><span class="hl std">(snp_5y)</span><span class="hl opt">/</span><span class="hl num">5</span><span class="hl std">)</span> <span class="hl opt">-</span> <span class="hl num">1</span>
+
+<span class="hl std">snp</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">matrix</span><span class="hl std">(</span>
+  <span class="hl kwd">c</span><span class="hl std">(snp_mean_d_ari, snp_mean_d_geo, snp_mean_m_ari, snp_mean_m_geo, snp_mean_y_ari, snp_mean_y_geo, snp_mean_5y_ari, snp_mean_5y_geo),</span>
+  <span class="hl kwc">ncol</span> <span class="hl std">=</span> <span class="hl num">4</span><span class="hl std">,</span> <span class="hl kwc">dimnames</span> <span class="hl std">=</span> <span class="hl kwd">list</span><span class="hl std">(</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl str">&quot;Arithmetic&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Geometric&quot;</span><span class="hl std">),</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl str">&quot;Daily&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Monthly&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Annual&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;5 Year&quot;</span><span class="hl std">)))</span>
+<span class="hl std">snp</span>
+</pre></div>
+<div class="output"><pre class="knitr r">##                Daily   Monthly    Annual    5 Year
+## Arithmetic 0.1133412 0.1109118 0.1192814 0.1878368
+## Geometric  0.1033690 0.1035023 0.1035023 0.1220944
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com"># 2. Excess rates of return above the prevailing short rate, the 30-day, the 1-year, and the 5-year Treasury rates</span>
+<span class="hl std">excess_daily</span> <span class="hl kwb">&lt;-</span> <span class="hl std">snp_daily</span> <span class="hl opt">-</span> <span class="hl std">fed_daily</span>
+<span class="hl std">excess_monthly</span> <span class="hl kwb">&lt;-</span> <span class="hl std">snp_monthly</span> <span class="hl opt">-</span> <span class="hl std">trea_monthly</span>
+<span class="hl std">excess_annual</span> <span class="hl kwb">&lt;-</span> <span class="hl std">snp_annual</span> <span class="hl opt">-</span> <span class="hl std">trea_annual</span>
+<span class="hl std">excess_5y</span> <span class="hl kwb">&lt;-</span> <span class="hl std">snp_5y</span> <span class="hl opt">-</span> <span class="hl std">trea_5y</span>
+
+<span class="hl std">ex_mean_d_ari</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">mean</span><span class="hl std">(excess_daily)</span><span class="hl opt">*</span><span class="hl num">252</span>
+<span class="hl std">ex_mean_d_geo</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">prod</span><span class="hl std">(</span><span class="hl num">1</span> <span class="hl opt">+</span> <span class="hl std">excess_daily)</span><span class="hl opt">^</span><span class="hl std">(</span><span class="hl num">252</span><span class="hl opt">/</span><span class="hl kwd">length</span><span class="hl std">(excess_daily))</span> <span class="hl opt">-</span> <span class="hl num">1</span>
+
+<span class="hl std">ex_mean_m_ari</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">mean</span><span class="hl std">(excess_monthly)</span><span class="hl opt">*</span><span class="hl num">12</span>
+<span class="hl std">ex_mean_m_geo</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">prod</span><span class="hl std">(</span><span class="hl num">1</span> <span class="hl opt">+</span> <span class="hl std">excess_monthly)</span><span class="hl opt">^</span><span class="hl std">(</span><span class="hl num">12</span><span class="hl opt">/</span><span class="hl kwd">length</span><span class="hl std">(excess_monthly))</span> <span class="hl opt">-</span> <span class="hl num">1</span>
+
+<span class="hl std">ex_mean_y_ari</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">mean</span><span class="hl std">(excess_annual)</span>
+<span class="hl std">ex_mean_y_geo</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">prod</span><span class="hl std">(</span><span class="hl num">1</span> <span class="hl opt">+</span> <span class="hl std">excess_annual)</span><span class="hl opt">^</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl opt">/</span><span class="hl kwd">length</span><span class="hl std">(excess_annual))</span> <span class="hl opt">-</span> <span class="hl num">1</span>
+
+<span class="hl std">ex_mean_5y_ari</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">mean</span><span class="hl std">(excess_5y)</span><span class="hl opt">/</span><span class="hl num">5</span>
+<span class="hl std">ex_mean_5y_geo</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">prod</span><span class="hl std">(</span><span class="hl num">1</span> <span class="hl opt">+</span> <span class="hl std">excess_5y)</span><span class="hl opt">^</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl opt">/</span><span class="hl kwd">length</span><span class="hl std">(excess_5y)</span><span class="hl opt">/</span><span class="hl num">5</span><span class="hl std">)</span> <span class="hl opt">-</span> <span class="hl num">1</span>
+
+<span class="hl std">excess</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">matrix</span><span class="hl std">(</span>
+  <span class="hl kwd">c</span><span class="hl std">(ex_mean_d_ari, ex_mean_d_geo, ex_mean_m_ari, ex_mean_m_geo, ex_mean_y_ari, ex_mean_y_geo, ex_mean_5y_ari, ex_mean_5y_geo),</span>
+  <span class="hl kwc">ncol</span> <span class="hl std">=</span> <span class="hl num">4</span><span class="hl std">,</span> <span class="hl kwc">dimnames</span> <span class="hl std">=</span> <span class="hl kwd">list</span><span class="hl std">(</span><span class="hl kwd">c</span><span class="hl std">(</span><span class="hl str">&quot;Arithmetic&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Geometric&quot;</span><span class="hl std">),</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl str">&quot;Daily&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Monthly&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;Annual&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;5 Year&quot;</span><span class="hl std">)))</span>
+<span class="hl std">excess</span>
+</pre></div>
+<div class="output"><pre class="knitr r">##                 Daily    Monthly     Annual     5 Year
+## Arithmetic 0.05195451 0.06140517 0.05654931 0.09879048
+## Geometric  0.03781546 0.05038317 0.03949998 0.05279528
+</pre></div>
+</div></div>
+        </div>
+        
+    </body>
+</html>

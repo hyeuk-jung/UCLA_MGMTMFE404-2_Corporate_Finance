@@ -1,0 +1,267 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+<style type="text/css">
+.knitr .inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.rimage .left {
+  text-align: left;
+}
+.rimage .right {
+  text-align: right;
+}
+.rimage .center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.str {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.std {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+        <title>hw4_Hyeuk_Jung.html</title>
+        <meta name="KEYWORDS" content="...">
+        <meta name="AUTHOR" content="Hyeuk Jung">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="hw.css">
+        <style>
+          table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 70%
+          }
+          td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+          }
+          tr:nth-child(even) {
+            background-color: #dddddd;
+          }
+        </style>
+    </head>
+
+    <body>
+        <div class="fluid-row" id="header">
+            <h1 class="title"> Project 4 - Finlset </h1>
+            <h4 class="author"><i> Hyeuk Jung </i></h4>
+            <h4 class="date"><i> February 9, 2019 </i></h4>
+        </div>
+
+        <div id="executive_summary">
+            <h2> Executive Summary </h2>
+                <p> In this project, we develop the data set of earnings, cash flows, and leverage ratios using the data available to investors <i>for sure</i> in December of the year. Here, we use every stock that has been registered in Compustat database from <b>1950/01</b> to <b>2019/02</b>. As an identifier of each firm, we use a variable "GVKEY". 
+                <br> Using the report date information and data cleaning, we obtained the annual average data from <b>1962</b> to <b>2018</b></p>
+        </div>  
+        
+        <div id="data_source">
+            <h2> Data Source </h2>
+                <ol>
+                  <li> <b>Annual</b> fundamental information: 
+                       <br> 1) Compustat unique firm number (GVKEY);
+                       <br> 2) Fiscal year (FYEAR);
+                       <br> 3) Total asset (AT);
+                       <br> 4) Total debt = Average ST borrowings (BAST) + Debt in current liability portion (DLC) + Long-term debt in total (DLTT);
+                       <br> 5) Stockholders' equity (SEQ);
+                       <br> 6) Earnings: EBIT, EBITDA, and NI
+                       <br> 7) Cash flows: Cash flow of operations (OANCF), investing (IVNCF), and financing (FINCF)
+                       <br> 8) ETC (for FCF calculation): Depreatiation and amortization (DP), capital expenditure(CAPX), and working capital change (WCAPCH)
+                       <br> (WRDS -> Compustat - Capital IQ -> Compustat -> North America - Daily -> Compustat Daily Updates - Fundamentals Annual) 
+                  </li>
+                  <li> <b>Quarterly</b> fundamental information: 
+                       <br> 1) Report date of quarterly earnings (RDQ)
+                       <br> (WRDS -> Compustat - Capital IQ -> Compustat -> North America - Daily -> Compustat Daily Updates - Fundamentals Quarterly) 
+                  </li>
+                </ol>
+        </div>
+
+        <div id="key_statistics">
+            <h2> Tables and Figures </h2>
+            <h3> 1. Descriptive Statistics of the Data Set (Used available data by December) </h3>
+            <table border=1>
+              <tr> <th>  </th> <th> datayear </th> <th> EEBIT </th> <th> EEBITDA </th> <th> ENI </th> <th> EnetCF </th> <th> EFCF </th> <th> ETD_TA </th> <th> ETD_TE </th>  </tr>
+              <tr> <td align="right"> X </td> <td> Min.: 1962 </td> <td> Min.: 14.38 </td> <td> Min.: 18.82 </td> <td> Min.:-17.24 </td> <td> Min.: -49.75 </td> <td> Min.:-24.442 </td> <td> Min.:0.1822 </td> <td> Min.:-4.0188 </td> </tr>
+              <tr> <td align="right"> X.1 </td> <td> 1st Qu.: 1976 </td> <td> 1st Qu.: 23.29 </td> <td> 1st Qu.: 31.72 </td> <td> 1st Qu.: 10.08 </td> <td> 1st Qu.: 0.00 </td> <td> 1st Qu.: -0.069 </td> <td> 1st Qu.: 0.3029 </td> <td> 1st Qu.: 0.6096 </td> </tr>
+              <tr> <td align="right"> X.2 </td> <td> Median: 1990 </td> <td> Median: 44.71 </td> <td> Median: 69.24 </td> <td> Median: 18.37 </td> <td> Median: 0.00 </td> <td> Median: 5.293 </td> <td> Median: 0.5101 </td> <td> Median: 0.9355 </td> </tr>
+              <tr> <td align="right"> X.3 </td> <td> Mean: 1990 </td> <td> Mean: 143.40 </td> <td> Mean: 204.83 </td> <td> Mean: 70.72 </td> <td> Mean: 24.30 </td> <td> Mean: 53.264 </td> <td> Mean: 1.0083 </td> <td> Mean: 2.9218 </td> </tr>
+              <tr> <td align="right"> X.4 </td> <td> 3rd Qu.: 2005 </td> <td> 3rd Qu.: 214.81 </td> <td> 3rd Qu.: 319.49 </td> <td> 3rd Qu.: 54.16 </td> <td> 3rd Qu.: 15.72 </td> <td> 3rd Qu.: 37.366 </td> <td> 3rd Qu.:1.1506 </td> <td> 3rd Qu.: 1.8814 </td> </tr>
+              <tr> <td align="right"> X.5 </td> <td> Max.: 2019 </td> <td> Max.: 715.66 </td> <td> Max.: 997.98 </td> <td> Max.: 455.64 </td> <td> Max.: 313.34 </td> <td> Max.: 428.720 </td> <td> Max.: 5.0696 </td> <td> Max.: 51.8060 </td> </tr>
+              <tr> <td align="right"> X.6 </td> <td>  </td> <td> NA's: 1 </td> <td> NA's: 1 </td> <td> NA's: 1 </td> <td> NA's: 1 </td> <td> NA's: 1 </td> <td> NA's: 1 </td> <td> NA's: 1 </td> </tr>
+            </table>
+            
+            <h3> 2. Sample of the Data Set </h3>
+            <table border=1>
+              <tr> <th>  </th> <th> datayear </th> <th> EEBIT </th> <th> EEBITDA </th> <th> ENI </th> <th> EnetCF </th> <th> EFCF </th> <th> ETD_TA </th> <th> ETD_TE </th>  </tr>
+              <tr> <td align="right"> 1 </td> <td align="right"> 1962.00 </td> <td align="right"> 32.16 </td> <td align="right"> 40.74 </td> <td align="right"> 14.70 </td> <td align="right"> 0.00 </td> <td align="right"> 13.96 </td> <td align="right"> 0.20 </td> <td align="right"> 0.40 </td> </tr>
+              <tr> <td align="right"> 2 </td> <td align="right"> 1963.00 </td> <td align="right"> 24.50 </td> <td align="right"> 31.13 </td> <td align="right"> 12.00 </td> <td align="right"> 0.00 </td> <td align="right"> 7.37 </td> <td align="right"> 0.18 </td> <td align="right"> 0.37 </td> </tr>
+              <tr> <td align="right"> 3 </td> <td align="right"> 1964.00 </td> <td align="right"> 23.56 </td> <td align="right"> 30.80 </td> <td align="right"> 11.77 </td> <td align="right"> 0.00 </td> <td align="right"> 5.29 </td> <td align="right"> 0.21 </td> <td align="right"> 0.45 </td> </tr>
+              <tr> <td align="right"> 4 </td> <td align="right"> 1965.00 </td> <td align="right"> 32.50 </td> <td align="right"> 41.31 </td> <td align="right"> 16.88 </td> <td align="right"> 0.00 </td> <td align="right"> 8.89 </td> <td align="right"> 0.24 </td> <td align="right"> 0.61 </td> </tr>
+              <tr> <td align="right"> 5 </td> <td align="right"> 1966.00 </td> <td align="right"> 20.07 </td> <td align="right"> 25.47 </td> <td align="right"> 10.61 </td> <td align="right"> 0.00 </td> <td align="right"> 5.34 </td> <td align="right"> 0.25 </td> <td align="right"> -4.02 </td> </tr>
+              <tr> <td align="right"> 6 </td> <td align="right"> 1967.00 </td> <td align="right"> 15.39 </td> <td align="right"> 19.80 </td> <td align="right"> 8.02 </td> <td align="right"> 0.00 </td> <td align="right"> 3.29 </td> <td align="right"> 0.25 </td> <td align="right"> 0.58 </td> </tr>
+            </table>
+            
+            <h3> 3. Earnings </h3>
+            <img alt="earnings" src="Earnings_1.png">
+            <img alt="earnings" src="Earnings_2.png">
+            <h3> 4. Cash Flows </h3>
+            <img alt="cashflows" src="Cashflows_1.png">
+            <img alt="cashflows" src="Cashflows_2.png">
+            <h3> 5. Leverage Ratios </h3>
+            <img alt="leverages" src="Leverages_1.png">
+            <img alt="leverages" src="leverages_2.png">
+        </div>
+
+        <div id="report">
+            <h2> Report </h2>
+                <p> To build the annual data set of earnings, we used the data in Compustat from 1950/01/01 to 2019/02/08 focusing on following point(s):
+                    <ol>
+                      <li> Provide appropriate information for earnigs, cash flows, and leverage ratios; and </li>
+                      <li> Use the information that are available to investors for sure in December of the year </li>
+                    </ol>
+                </p>
+                <p> For the calculation, we used 348,676 complete annual observations among 488,956 observations. Data were removed if they do not hold fundamental information or if the value of total asset and total equity was zero as these causes Inf values. <br>Before developing the data set, we expected exponential growth trend of earnings, cash flows, and firm's financial structure (TD/TA), which is an observable trend in GDP. In addition, we also wanted to figure out the impact of delay in the publication of financial statements by comparing the indicators calculated based on the fiscal year (including the information released after December). 
+                  <br> Followings are the indicators we provide for each category:
+                    <ol>
+                      <li> Earnings: E(EBIT), E(EBITDA), and E(NI) </li>
+                      <li> Cash flows: E(Net CF change) and E(Free cash flows) </li>
+                      <li> Leverage ratios: E(Total debt / Total asset) and E(Total debt / Equity) </li>
+                    </ol>
+                  <br> From the statistics summary (Table 1) and the plots, we got the result we expected from most of the indicators. E(Net CF change)'s value is zero for early years of the observation period due to insufficient information provided to the database.
+                  <br> To see the impact of data availability in detail, here we provide the plots by using the data available in December(left) and by including all data for each fiscal year. From the graph, the growth trend for both cases were the same. However, the trend in E(net CF change) differed significantly. As this indicates the firm's spending in the market and its expectation toward ST market (bullish or bearish), having full information may affect the investors who follow the market trend.
+                </p>
+        </div>
+        
+        <div id="references">
+            <h3> References </h3>
+            <ul>
+              <li> <a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=US&name_desc=false">GDP (Current US$)</a>, World Bank.
+              </li>
+            </ul>
+        </div>
+
+       <div id="code">
+            <h2> Computer code </h2>
+<div class="chunk" id="unnamed-chunk-1"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl com"># MGMTMFE404-2 Corporate Finance and Risk Management</span>
+<span class="hl com"># HW 4 (Finlset)</span>
+<span class="hl com"># Hyeuk Jung (005259560)</span>
+
+<span class="hl com"># Libraries</span>
+<span class="hl kwd">options</span><span class="hl std">(</span> <span class="hl kwc">warn</span> <span class="hl std">=</span> <span class="hl opt">-</span><span class="hl num">1</span> <span class="hl std">)</span>
+<span class="hl kwd">library</span><span class="hl std">(data.table)</span>
+<span class="hl kwd">library</span><span class="hl std">(dplyr)</span>
+</pre></div>
+<div class="message"><pre class="knitr r">## 
+## Attaching package: 'dplyr'
+</pre></div>
+<div class="message"><pre class="knitr r">## The following objects are masked from 'package:data.table':
+## 
+##     between, first, last
+</pre></div>
+<div class="message"><pre class="knitr r">## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+</pre></div>
+<div class="message"><pre class="knitr r">## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl kwd">library</span><span class="hl std">(xtable)</span>
+
+<span class="hl com"># Report date information</span>
+<span class="hl std">rdqinfo</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">read.csv</span><span class="hl std">(</span><span class="hl str">&quot;rdqinfo.csv&quot;</span><span class="hl std">,</span> <span class="hl kwc">header</span> <span class="hl std">= T)</span> <span class="hl opt">%&gt;%</span> <span class="hl std">as.data.table;</span> <span class="hl kwd">gc</span><span class="hl std">()</span>
+</pre></div>
+<div class="output"><pre class="knitr r">##            used (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
+## Ncells   498899 26.7    1153120  61.6         NA   630771  33.7
+## Vcells 11182418 85.4   36335755 277.3      16384 44694392 341.0
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl std">rdq</span> <span class="hl kwb">&lt;-</span> <span class="hl std">rdqinfo[</span><span class="hl kwd">which</span><span class="hl std">(fqtr</span> <span class="hl opt">==</span> <span class="hl num">4</span><span class="hl std">),</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl std">,</span><span class="hl num">2</span><span class="hl std">,</span><span class="hl num">12</span><span class="hl std">)]</span>
+<span class="hl std">rdq[, datadate</span> <span class="hl kwb">:=</span> <span class="hl kwd">as.Date</span><span class="hl std">(</span><span class="hl kwd">as.character</span><span class="hl std">(datadate),</span> <span class="hl str">&quot;%Y%m%d&quot;</span><span class="hl std">)]</span>
+<span class="hl std">rdq[, rdq</span> <span class="hl kwb">:=</span> <span class="hl kwd">as.Date</span><span class="hl std">(</span><span class="hl kwd">as.character</span><span class="hl std">(rdq),</span> <span class="hl str">&quot;%Y%m%d&quot;</span><span class="hl std">)]</span>
+
+<span class="hl com"># Data</span>
+<span class="hl std">df</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">read.csv</span><span class="hl std">(</span><span class="hl str">&quot;data.csv&quot;</span><span class="hl std">,</span> <span class="hl kwc">header</span> <span class="hl std">= T)</span> <span class="hl opt">%&gt;%</span> <span class="hl std">as.data.table;</span> <span class="hl kwd">gc</span><span class="hl std">()</span>
+</pre></div>
+<div class="output"><pre class="knitr r">##            used  (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
+## Ncells   526177  28.2    2042748 109.1         NA  1338899  71.6
+## Vcells 22685140 173.1   43682906 333.3      16384 44694392 341.0
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com"># Calculate cash flows and total debt amount</span>
+<span class="hl std">df2</span> <span class="hl kwb">&lt;-</span> <span class="hl std">df</span> <span class="hl opt">%&gt;%</span> <span class="hl kwd">rowwise</span><span class="hl std">()</span> <span class="hl opt">%&gt;%</span> <span class="hl kwd">mutate</span><span class="hl std">(</span><span class="hl kwc">netcf</span> <span class="hl std">=</span> <span class="hl kwd">sum</span><span class="hl std">(fincf, ivncf, oancf,</span> <span class="hl kwc">na.rm</span> <span class="hl std">= T),</span>
+                                   <span class="hl kwc">fcf</span> <span class="hl std">=</span> <span class="hl kwd">ifelse</span><span class="hl std">(</span><span class="hl kwd">is.na</span><span class="hl std">(ni),</span> <span class="hl num">0</span><span class="hl std">, ni)</span> <span class="hl opt">+</span> <span class="hl kwd">ifelse</span><span class="hl std">(</span><span class="hl kwd">is.na</span><span class="hl std">(dp),</span> <span class="hl num">0</span><span class="hl std">, dp)</span> <span class="hl opt">-</span>
+                                         <span class="hl kwd">ifelse</span><span class="hl std">(</span><span class="hl kwd">is.na</span><span class="hl std">(wcapch),</span> <span class="hl num">0</span><span class="hl std">, wcapch)</span> <span class="hl opt">-</span> <span class="hl kwd">ifelse</span><span class="hl std">(</span><span class="hl kwd">is.na</span><span class="hl std">(capx),</span> <span class="hl num">0</span><span class="hl std">, capx),</span>
+                                   <span class="hl kwc">totaldebt</span> <span class="hl std">=</span> <span class="hl kwd">sum</span><span class="hl std">(dlc, dltt, bast,</span> <span class="hl kwc">na.rm</span> <span class="hl std">= T))</span> <span class="hl opt">%&gt;%</span> <span class="hl std">as.data.table</span>
+<span class="hl com">#data &lt;- gvkey, datadate, fyear, at, totaldebt, seq, ebit, ebitda, ni, netcf, fcf</span>
+<span class="hl std">data</span> <span class="hl kwb">&lt;-</span> <span class="hl std">df2[,</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl num">1</span><span class="hl std">,</span> <span class="hl num">2</span><span class="hl std">,</span> <span class="hl num">3</span><span class="hl std">,</span> <span class="hl num">9</span><span class="hl std">,</span> <span class="hl num">28</span><span class="hl std">,</span> <span class="hl num">23</span><span class="hl std">,</span> <span class="hl num">17</span><span class="hl std">,</span> <span class="hl num">18</span><span class="hl std">,</span> <span class="hl num">21</span><span class="hl std">,</span> <span class="hl num">26</span><span class="hl std">,</span> <span class="hl num">27</span><span class="hl std">)]</span>
+<span class="hl std">data[, datadate</span> <span class="hl kwb">:=</span> <span class="hl kwd">as.Date</span><span class="hl std">(</span><span class="hl kwd">as.character</span><span class="hl std">(datadate),</span> <span class="hl str">&quot;%Y%m%d&quot;</span><span class="hl std">)]</span>
+<span class="hl std">data</span> <span class="hl kwb">&lt;-</span> <span class="hl std">data[</span><span class="hl kwd">complete.cases</span><span class="hl std">(data), ]</span>
+<span class="hl std">data</span> <span class="hl kwb">&lt;-</span> <span class="hl std">data[</span><span class="hl kwd">which</span><span class="hl std">(data[,</span> <span class="hl str">&quot;at&quot;</span><span class="hl std">]</span> <span class="hl opt">!=</span> <span class="hl num">0</span> <span class="hl opt">&amp;</span> <span class="hl std">data[,</span> <span class="hl str">&quot;seq&quot;</span><span class="hl std">]</span> <span class="hl opt">!=</span> <span class="hl num">0</span><span class="hl std">), ]</span> <span class="hl com"># delete rows if total asset or equity value is zero</span>
+
+<span class="hl com"># merge data tables</span>
+<span class="hl std">keycols</span> <span class="hl kwb">=</span> <span class="hl kwd">c</span><span class="hl std">(</span><span class="hl str">&quot;gvkey&quot;</span><span class="hl std">,</span> <span class="hl str">&quot;datadate&quot;</span><span class="hl std">)</span>
+<span class="hl kwd">setkeyv</span><span class="hl std">(data, keycols)</span>
+<span class="hl kwd">setkeyv</span><span class="hl std">(rdq, keycols)</span>
+<span class="hl std">fin</span> <span class="hl kwb">&lt;-</span><span class="hl std">data[rdq]</span>
+<span class="hl com"># Extract the year and month information / calculate leverage ratios</span>
+<span class="hl std">fin</span> <span class="hl kwb">&lt;-</span> <span class="hl std">fin</span> <span class="hl opt">%&gt;%</span> <span class="hl kwd">rowwise</span><span class="hl std">()</span> <span class="hl opt">%&gt;%</span> <span class="hl kwd">mutate</span><span class="hl std">(</span><span class="hl kwc">datayear</span> <span class="hl std">=</span> <span class="hl kwd">as.numeric</span><span class="hl std">(</span><span class="hl kwd">format</span><span class="hl std">(datadate,</span><span class="hl str">&quot;%Y&quot;</span><span class="hl std">)),</span>
+                                    <span class="hl kwc">datamonth</span> <span class="hl std">=</span> <span class="hl kwd">as.numeric</span><span class="hl std">(</span><span class="hl kwd">format</span><span class="hl std">(datadate,</span><span class="hl str">&quot;%m&quot;</span><span class="hl std">)),</span>
+                                    <span class="hl kwc">reportyear</span> <span class="hl std">=</span> <span class="hl kwd">as.numeric</span><span class="hl std">(</span><span class="hl kwd">format</span><span class="hl std">(rdq,</span> <span class="hl str">&quot;%Y&quot;</span><span class="hl std">)),</span>
+                                    <span class="hl kwc">reportmonth</span> <span class="hl std">=</span> <span class="hl kwd">as.numeric</span><span class="hl std">(</span><span class="hl kwd">format</span><span class="hl std">(rdq,</span> <span class="hl str">&quot;%m&quot;</span><span class="hl std">)),</span>
+                                    <span class="hl kwc">td_ta</span> <span class="hl std">= totaldebt</span><span class="hl opt">/</span><span class="hl std">at,</span> <span class="hl kwc">td_te</span> <span class="hl std">= totaldebt</span><span class="hl opt">/</span><span class="hl std">seq)</span> <span class="hl opt">%&gt;%</span> <span class="hl std">as.data.table</span>
+
+<span class="hl com"># Filter 1. Match the year of the fiscal year and reported year -&gt; year does not match, exclude o (the data are unavailable in the fyear)</span>
+<span class="hl com"># Filter 2. If the reported date information is unavailable, consider the last month of the fiscal year -&gt; If it's before Oct.1 include o</span>
+<span class="hl std">finlset</span> <span class="hl kwb">&lt;-</span> <span class="hl std">fin</span> <span class="hl opt">%&gt;%</span> <span class="hl kwd">group_by</span><span class="hl std">(datayear)</span> <span class="hl opt">%&gt;%</span> <span class="hl kwd">filter</span><span class="hl std">(datayear</span> <span class="hl opt">==</span> <span class="hl std">reportyear</span> <span class="hl opt">|</span> <span class="hl std">datamonth</span> <span class="hl opt">%in%</span> <span class="hl num">1</span><span class="hl opt">:</span><span class="hl num">10</span><span class="hl std">)</span> <span class="hl opt">%&gt;%</span>
+  <span class="hl kwd">summarise</span><span class="hl std">(</span><span class="hl kwc">EEBIT</span> <span class="hl std">=</span> <span class="hl kwd">mean</span><span class="hl std">(ebit,</span> <span class="hl kwc">na.rm</span> <span class="hl std">= T),</span> <span class="hl kwc">EEBITDA</span> <span class="hl std">=</span> <span class="hl kwd">mean</span><span class="hl std">(ebitda,</span> <span class="hl kwc">na.rm</span> <span class="hl std">= T),</span> <span class="hl kwc">ENI</span> <span class="hl std">=</span> <span class="hl kwd">mean</span><span class="hl std">(ni,</span> <span class="hl kwc">na.rm</span> <span class="hl std">= T),</span>
+            <span class="hl kwc">EnetCF</span> <span class="hl std">=</span> <span class="hl kwd">mean</span><span class="hl std">(netcf,</span> <span class="hl kwc">na.rm</span> <span class="hl std">= T),</span> <span class="hl kwc">EFCF</span> <span class="hl std">=</span> <span class="hl kwd">mean</span><span class="hl std">(fcf,</span> <span class="hl kwc">na.rm</span> <span class="hl std">= T),</span> <span class="hl kwc">ETD_TA</span> <span class="hl std">=</span> <span class="hl kwd">mean</span><span class="hl std">(td_ta,</span> <span class="hl kwc">na.rm</span> <span class="hl std">= T),</span> <span class="hl kwc">ETD_TE</span> <span class="hl std">=</span> <span class="hl kwd">mean</span><span class="hl std">(td_te,</span> <span class="hl kwc">na.rm</span> <span class="hl std">= T))</span>
+</pre></div>
+</div></div>
+        </div>
+        
+    </body>
+</html>

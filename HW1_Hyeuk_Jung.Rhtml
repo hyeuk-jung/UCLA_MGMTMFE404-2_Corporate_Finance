@@ -1,0 +1,200 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>hwtemplate.html</title>
+        <meta name="KEYWORDS" content="...">
+        <meta name="AUTHOR" content="Hyeuk Jung">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="hw.css">
+        <style>
+          table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+          }
+          td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+          }
+          tr:nth-child(even) {
+            background-color: #dddddd;
+          }
+        </style>
+    </head>
+
+    <body>
+        <div class="fluid-row" id="header">
+            <h1 class="title"> Project 1 - Indexes </h1>
+            <h4 class="author"><i> Hyeuk Jung </i></h4>
+            <h4 class="date"><i> January 19, 2019 </i></h4>
+        </div>
+
+        <div id="executive_summary">
+            <h2> Executive Summary </h2>
+                <p> We are interested to learn how stocks perform in terms of excess rates of return when they are actually paying a dividend. (The cum to ex-dates are noted for each stock in CRSP.) What happened to the stock return (minus the S&P500 on the same day) from days -20 through day +20, each day by day? Line up all stock excess returns on the event dates, and calculate the mean across all stock-days. This is the day 0 event mean excess rate of return. Eventually, your result will be 41 mean excess rates of return, that you can graph with relative day on the x-axis and mean rate of return (across all excess returns) on the y-axis. You can do this assignment only for calendar years after 2010 to make it simpler. (O: How does each stock's rate of return relate to the amount of the dividend it actually paid?).
+                <br>To test the performance of each portfolio, we used the data from 1973/01/01 to 2015/01/01 and answered the following key questions:
+                    <ol>
+                      <li> Arithmetic rate of return of S&P500 </li>
+                      <li> Geometric rate of return of S&P500 </li>
+                      <li> Excess rate of return of S&P500 above 1) the prevailing short rate, 2) the 30-day, 3) the 1-year, and 4) the 5-year Treasury rates (in arithmetic and geometric form) </li>
+                      <li> How would each of these four self-financed strategies have performed?" 
+                           <br>(Does overlapping the longer-term series lead to different inference?) </li>
+                    </ol>
+                </p>
+                
+                <p> From the results, we concluded that the five-year strategies outformed the others.
+        </div>
+
+        <div id="data_source">
+            <h2> Data Source </h2>
+                <ol>
+                  <li> S&P500 index: Value-weighted rate of return of S&P500 including dividends.
+                       <br>(WRDS -> CRSP -> Annual Update -> Index/S&P 500 Indexes -> CRSP Index File on the S&P 500.) </li>
+                  <li> Prevailing short rate: Federal funds rate
+                       <br>(WRDS -> Federal Reserve Bank -> Interest Rates -> Interest Rates (Federal Reserve, H15 report)) </li>
+                  <li> Treasury rates: Monthly and annual returns of US Treasury indexes
+                       <br>(WRDS -> CRSP -> Annual Update -> Index / Treasury and Inflation -> US Treasury and Inflation Indexes) </li>
+                </ol>
+        </div>
+
+        <div id="key_statistics">
+            <h2> Tables and Figures </h2>
+            <h3> 1. Rate of Returns of S&P500 </h3>
+            <table>
+                <thead> <tr> <th></th> <th>Daily</th> <th>Monthly</th> <th>Annual</th> <th>5-Year (1975~2014)</th> </tr> </thead>
+                <tbody>
+                    <tr> <th>Arithmetic</th> <td>0.1133412</td> <td>0.1109118</td> <td>0.1192814</td> <td>0.1878368</td> </tr>
+                    <tr> <th>Geometric</th> <td>0.1033690</td> <td>0.1035023</td> <td>0.1035023</td> <td>0.1220944</td> </tr>
+                </tbody>
+            </table>
+            
+            <h3> 2. Excess Rate of Returns of S&P500 </h3>
+            <table>
+                <thead> <tr> <th></th> <th>Daily</th> <th>Monthly</th> <th>Annual</th> <th>5-Year (1975~2014)</th> </tr> </thead>
+                <tbody>
+                    <tr> <th>Arithmetic</th> <td>0.05195451</td> <td>0.06140517</td> <td>0.05654931</td> <td>0.09879048</td> </tr>
+                    <tr> <th>Geometric</th> <td>0.03781546</td> <td>0.05038317</td> <td>0.03949998</td> <td>0.05279528</td> </tr>
+                </tbody>
+            </table>
+            
+        </div>
+
+        <div id="code">
+            <h2> Computer code </h2>
+<!--begin.rcode
+#
+# MGMTMFE404-2 Corporate Finance and Risk Management
+# HW 1 (Indexes)
+# Hyeuk Jung (005259560)
+
+# Libraries
+library(xts)
+
+##### Load S&P500 and Treasury rates ---------------------
+##### S&P 500
+# CRSP -> Annual Update -> Index/S&P 500 Indexes -> CRSP Index File on the S&P 500
+# Using value-weighted rate of return of S&P500 including dividends
+df <- read.csv("snp500.csv", header = T)
+row.names(df) <- as.Date(as.character(df$caldt), "%Y%m%d")
+df$caldt <- NULL
+snp500 <- as.xts(df)
+
+snp_daily <- snp500["1973-01-01/2015-01-01"] # from 1/1/1973 through 1/1/2015
+snp_monthly <- apply.monthly(snp_daily, function(x) prod(1 + x) - 1)
+snp_annual <- apply.yearly(snp_daily, function(x) prod(1 + x) - 1)
+# 5-yr return, 1975 ~ 2014
+snp_5y <- vector()
+#index_1y <- endpoints(snp_daily, "years", 1)
+index_5y <- endpoints(snp_daily, "years", 5)
+for(i in 2:(length(index_5y)-1)) {
+#snp_5y[i] <- prod(1 + snp_daily[(index_5y[i]+1):index_5y[i+1]])^(1/5) - 1
+  snp_5y[i] <- prod(1 + snp_daily[(index_5y[i]+1):index_5y[i+1]]) - 1
+}
+snp_5y <- matrix(snp_5y, nrow = length(snp_5y), ncol = 1, 
+                 dimnames = list( as.character(index(snp_daily[index_5y[-1]])), "5yr ret."))
+snp_5y <- as.xts(snp_5y)
+snp_5y <- na.omit(snp_5y)
+
+##### Treasuries
+# Prevailing short rate: Federal funds rate
+### Federal Reserve Bank -> Interest Rates -> Interest Rates (Federal Reserve, H15 report)
+df2 <- read.csv("federalfunds.csv", header = T)
+row.names(df2) <- as.Date(as.character(df2$date), "%Y%m%d")
+df2$date <- NULL
+fed_daily <- as.xts(df2)["1973-01-01/2015-01-01"]
+fed_daily <- (1+ fed_daily$FF_O/100)^(1/252) - 1
+fed_daily <- na.omit(fed_daily)
+
+# 30-Day Treasury
+### CRSP -> Annual Update -> Index / Treasury and Inflation -> US Treasury and Inflation Indexes
+df3 <- read.csv("treasury_month.csv", header = T)
+row.names(df3) <- as.Date(as.character(df3$caldt), "%Y%m%d")
+df3$caldt <- NULL
+trea_monthly <- as.xts(df3)$t30ret["1973-01-01/2015-01-01"]
+trea_monthly <- na.omit(trea_monthly)
+# 1-Year Treasury
+df4 <- read.csv("treasury_annual.csv", header = T)
+row.names(df4) <- as.Date(as.character(df4$caldt), "%Y%m%d")
+df4$caldt <- NULL
+treasury <- as.xts(df4)["1973-01-01/2015-01-01"]
+trea_annual <- treasury$b1ret
+# 5-Year Treasury, 1975 ~ 2014
+trea_5y <- vector()
+index_5y <- endpoints(treasury$b5ret, "years", 5)
+for(i in 2:(length(index_5y)-1)) {
+  trea_5y[i] <- prod(1 + treasury$b5ret[(index_5y[i]+1):(index_5y[i+1])]) - 1
+}
+trea_5y <- matrix(trea_5y, nrow = length(trea_5y), ncol = 1, 
+                  dimnames = list( as.character(index(treasury$b5ret[index_5y[-1]])), "5yr ret."))
+trea_5y <- as.xts(trea_5y)
+trea_5y <- na.omit(trea_5y)
+
+
+##### Questions ---------------------
+# 1. Arithmetic & geometric historical mean rate of return for daily, monthly, annual, and for 5-year returns
+snp_mean_d_ari <- mean(snp_daily)*252
+snp_mean_d_geo <- prod(1 + snp_daily)^(252/length(snp_daily)) - 1
+
+snp_mean_m_ari <- mean(snp_monthly)*12
+snp_mean_m_geo <- prod(1 + snp_monthly)^(12/length(snp_monthly)) - 1
+
+snp_mean_y_ari <- mean(snp_annual)
+snp_mean_y_geo <- prod(1 + snp_annual)^(1/length(snp_annual)) - 1
+
+snp_mean_5y_ari <- mean(snp_5y)/5
+snp_mean_5y_geo <- prod(1 + snp_5y)^(1/length(snp_5y)/5) - 1
+
+snp <- matrix(
+  c(snp_mean_d_ari, snp_mean_d_geo, snp_mean_m_ari, snp_mean_m_geo, snp_mean_y_ari, snp_mean_y_geo, snp_mean_5y_ari, snp_mean_5y_geo), 
+  ncol = 4, dimnames = list(c("Arithmetic", "Geometric"), c("Daily", "Monthly", "Annual", "5 Year")))
+snp
+
+# 2. Excess rates of return above the prevailing short rate, the 30-day, the 1-year, and the 5-year Treasury rates
+excess_daily <- snp_daily - fed_daily
+excess_monthly <- snp_monthly - trea_monthly
+excess_annual <- snp_annual - trea_annual
+excess_5y <- snp_5y - trea_5y
+
+ex_mean_d_ari <- mean(excess_daily)*252
+ex_mean_d_geo <- prod(1 + excess_daily)^(252/length(excess_daily)) - 1
+
+ex_mean_m_ari <- mean(excess_monthly)*12
+ex_mean_m_geo <- prod(1 + excess_monthly)^(12/length(excess_monthly)) - 1
+
+ex_mean_y_ari <- mean(excess_annual)
+ex_mean_y_geo <- prod(1 + excess_annual)^(1/length(excess_annual)) - 1
+
+ex_mean_5y_ari <- mean(excess_5y)/5
+ex_mean_5y_geo <- prod(1 + excess_5y)^(1/length(excess_5y)/5) - 1
+
+excess <- matrix(
+  c(ex_mean_d_ari, ex_mean_d_geo, ex_mean_m_ari, ex_mean_m_geo, ex_mean_y_ari, ex_mean_y_geo, ex_mean_5y_ari, ex_mean_5y_geo), 
+  ncol = 4, dimnames = list(c("Arithmetic", "Geometric"), c("Daily", "Monthly", "Annual", "5 Year")))
+excess
+end.rcode-->
+        </div>
+        
+    </body>
+</html>

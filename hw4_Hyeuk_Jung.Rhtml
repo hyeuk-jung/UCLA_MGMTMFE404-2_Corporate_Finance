@@ -1,0 +1,179 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>hw4_Hyeuk_Jung.html</title>
+        <meta name="KEYWORDS" content="...">
+        <meta name="AUTHOR" content="Hyeuk Jung">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="hw.css">
+        <style>
+          table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 70%
+          }
+          td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+          }
+          tr:nth-child(even) {
+            background-color: #dddddd;
+          }
+        </style>
+    </head>
+
+    <body>
+        <div class="fluid-row" id="header">
+            <h1 class="title"> Project 4 - Finlset </h1>
+            <h4 class="author"><i> Hyeuk Jung </i></h4>
+            <h4 class="date"><i> February 9, 2019 </i></h4>
+        </div>
+
+        <div id="executive_summary">
+            <h2> Executive Summary </h2>
+                <p> In this project, we develop the data set of earnings, cash flows, and leverage ratios using the data available to investors <i>for sure</i> in December of the year. Here, we use every stock that has been registered in Compustat database from <b>1950/01</b> to <b>2019/02</b>. As an identifier of each firm, we use a variable "GVKEY". 
+                <br> Using the report date information and data cleaning, we obtained the annual average data from <b>1962</b> to <b>2018</b></p>
+        </div>  
+        
+        <div id="data_source">
+            <h2> Data Source </h2>
+                <ol>
+                  <li> <b>Annual</b> fundamental information: 
+                       <br> 1) Compustat unique firm number (GVKEY);
+                       <br> 2) Fiscal year (FYEAR);
+                       <br> 3) Total asset (AT);
+                       <br> 4) Total debt = Average ST borrowings (BAST) + Debt in current liability portion (DLC) + Long-term debt in total (DLTT);
+                       <br> 5) Stockholders' equity (SEQ);
+                       <br> 6) Earnings: EBIT, EBITDA, and NI
+                       <br> 7) Cash flows: Cash flow of operations (OANCF), investing (IVNCF), and financing (FINCF)
+                       <br> 8) ETC (for FCF calculation): Depreatiation and amortization (DP), capital expenditure(CAPX), and working capital change (WCAPCH)
+                       <br> (WRDS -> Compustat - Capital IQ -> Compustat -> North America - Daily -> Compustat Daily Updates - Fundamentals Annual) 
+                  </li>
+                  <li> <b>Quarterly</b> fundamental information: 
+                       <br> 1) Report date of quarterly earnings (RDQ)
+                       <br> (WRDS -> Compustat - Capital IQ -> Compustat -> North America - Daily -> Compustat Daily Updates - Fundamentals Quarterly) 
+                  </li>
+                </ol>
+        </div>
+
+        <div id="key_statistics">
+            <h2> Tables and Figures </h2>
+            <h3> 1. Descriptive Statistics of the Data Set (Used available data by December) </h3>
+            <table border=1>
+              <tr> <th>  </th> <th> datayear </th> <th> EEBIT </th> <th> EEBITDA </th> <th> ENI </th> <th> EnetCF </th> <th> EFCF </th> <th> ETD_TA </th> <th> ETD_TE </th>  </tr>
+              <tr> <td align="right"> X </td> <td> Min.: 1962 </td> <td> Min.: 14.38 </td> <td> Min.: 18.82 </td> <td> Min.:-17.24 </td> <td> Min.: -49.75 </td> <td> Min.:-24.442 </td> <td> Min.:0.1822 </td> <td> Min.:-4.0188 </td> </tr>
+              <tr> <td align="right"> X.1 </td> <td> 1st Qu.: 1976 </td> <td> 1st Qu.: 23.29 </td> <td> 1st Qu.: 31.72 </td> <td> 1st Qu.: 10.08 </td> <td> 1st Qu.: 0.00 </td> <td> 1st Qu.: -0.069 </td> <td> 1st Qu.: 0.3029 </td> <td> 1st Qu.: 0.6096 </td> </tr>
+              <tr> <td align="right"> X.2 </td> <td> Median: 1990 </td> <td> Median: 44.71 </td> <td> Median: 69.24 </td> <td> Median: 18.37 </td> <td> Median: 0.00 </td> <td> Median: 5.293 </td> <td> Median: 0.5101 </td> <td> Median: 0.9355 </td> </tr>
+              <tr> <td align="right"> X.3 </td> <td> Mean: 1990 </td> <td> Mean: 143.40 </td> <td> Mean: 204.83 </td> <td> Mean: 70.72 </td> <td> Mean: 24.30 </td> <td> Mean: 53.264 </td> <td> Mean: 1.0083 </td> <td> Mean: 2.9218 </td> </tr>
+              <tr> <td align="right"> X.4 </td> <td> 3rd Qu.: 2005 </td> <td> 3rd Qu.: 214.81 </td> <td> 3rd Qu.: 319.49 </td> <td> 3rd Qu.: 54.16 </td> <td> 3rd Qu.: 15.72 </td> <td> 3rd Qu.: 37.366 </td> <td> 3rd Qu.:1.1506 </td> <td> 3rd Qu.: 1.8814 </td> </tr>
+              <tr> <td align="right"> X.5 </td> <td> Max.: 2019 </td> <td> Max.: 715.66 </td> <td> Max.: 997.98 </td> <td> Max.: 455.64 </td> <td> Max.: 313.34 </td> <td> Max.: 428.720 </td> <td> Max.: 5.0696 </td> <td> Max.: 51.8060 </td> </tr>
+              <tr> <td align="right"> X.6 </td> <td>  </td> <td> NA's: 1 </td> <td> NA's: 1 </td> <td> NA's: 1 </td> <td> NA's: 1 </td> <td> NA's: 1 </td> <td> NA's: 1 </td> <td> NA's: 1 </td> </tr>
+            </table>
+            
+            <h3> 2. Sample of the Data Set </h3>
+            <table border=1>
+              <tr> <th>  </th> <th> datayear </th> <th> EEBIT </th> <th> EEBITDA </th> <th> ENI </th> <th> EnetCF </th> <th> EFCF </th> <th> ETD_TA </th> <th> ETD_TE </th>  </tr>
+              <tr> <td align="right"> 1 </td> <td align="right"> 1962.00 </td> <td align="right"> 32.16 </td> <td align="right"> 40.74 </td> <td align="right"> 14.70 </td> <td align="right"> 0.00 </td> <td align="right"> 13.96 </td> <td align="right"> 0.20 </td> <td align="right"> 0.40 </td> </tr>
+              <tr> <td align="right"> 2 </td> <td align="right"> 1963.00 </td> <td align="right"> 24.50 </td> <td align="right"> 31.13 </td> <td align="right"> 12.00 </td> <td align="right"> 0.00 </td> <td align="right"> 7.37 </td> <td align="right"> 0.18 </td> <td align="right"> 0.37 </td> </tr>
+              <tr> <td align="right"> 3 </td> <td align="right"> 1964.00 </td> <td align="right"> 23.56 </td> <td align="right"> 30.80 </td> <td align="right"> 11.77 </td> <td align="right"> 0.00 </td> <td align="right"> 5.29 </td> <td align="right"> 0.21 </td> <td align="right"> 0.45 </td> </tr>
+              <tr> <td align="right"> 4 </td> <td align="right"> 1965.00 </td> <td align="right"> 32.50 </td> <td align="right"> 41.31 </td> <td align="right"> 16.88 </td> <td align="right"> 0.00 </td> <td align="right"> 8.89 </td> <td align="right"> 0.24 </td> <td align="right"> 0.61 </td> </tr>
+              <tr> <td align="right"> 5 </td> <td align="right"> 1966.00 </td> <td align="right"> 20.07 </td> <td align="right"> 25.47 </td> <td align="right"> 10.61 </td> <td align="right"> 0.00 </td> <td align="right"> 5.34 </td> <td align="right"> 0.25 </td> <td align="right"> -4.02 </td> </tr>
+              <tr> <td align="right"> 6 </td> <td align="right"> 1967.00 </td> <td align="right"> 15.39 </td> <td align="right"> 19.80 </td> <td align="right"> 8.02 </td> <td align="right"> 0.00 </td> <td align="right"> 3.29 </td> <td align="right"> 0.25 </td> <td align="right"> 0.58 </td> </tr>
+            </table>
+            
+            <h3> 3. Earnings </h3>
+            <img alt="earnings" src="Earnings_1.png">
+            <img alt="earnings" src="Earnings_2.png">
+            <h3> 4. Cash Flows </h3>
+            <img alt="cashflows" src="Cashflows_1.png">
+            <img alt="cashflows" src="Cashflows_2.png">
+            <h3> 5. Leverage Ratios </h3>
+            <img alt="leverages" src="Leverages_1.png">
+            <img alt="leverages" src="leverages_2.png">
+        </div>
+
+        <div id="report">
+            <h2> Report </h2>
+                <p> To build the annual data set of earnings, we used the data in Compustat from 1950/01/01 to 2019/02/08 focusing on following point(s):
+                    <ol>
+                      <li> Provide appropriate information for earnigs, cash flows, and leverage ratios; and </li>
+                      <li> Use the information that are available to investors for sure in December of the year </li>
+                    </ol>
+                </p>
+                <p> For the calculation, we used 348,676 complete annual observations among 488,956 observations. Data were removed if they do not hold fundamental information or if the value of total asset and total equity was zero as these causes Inf values. <br>Before developing the data set, we expected exponential growth trend of earnings, cash flows, and firm's financial structure (TD/TA), which is an observable trend in GDP. In addition, we also wanted to figure out the impact of delay in the publication of financial statements by comparing the indicators calculated based on the fiscal year (including the information released after December). 
+                  <br> Followings are the indicators we provide for each category:
+                    <ol>
+                      <li> Earnings: E(EBIT), E(EBITDA), and E(NI) </li>
+                      <li> Cash flows: E(Net CF change) and E(Free cash flows) </li>
+                      <li> Leverage ratios: E(Total debt / Total asset) and E(Total debt / Equity) </li>
+                    </ol>
+                  <br> From the statistics summary (Table 1) and the plots, we got the result we expected from most of the indicators. E(Net CF change)'s value is zero for early years of the observation period due to insufficient information provided to the database.
+                  <br> To see the impact of data availability in detail, here we provide the plots by using the data available in December(left) and by including all data for each fiscal year. From the graph, the growth trend for both cases were the same. However, the trend in E(net CF change) differed significantly. As this indicates the firm's spending in the market and its expectation toward ST market (bullish or bearish), having full information may affect the investors who follow the market trend.
+                </p>
+        </div>
+        
+        <div id="references">
+            <h3> References </h3>
+            <ul>
+              <li> <a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=US&name_desc=false">GDP (Current US$)</a>, World Bank.
+              </li>
+            </ul>
+        </div>
+
+       <div id="code">
+            <h2> Computer code </h2>
+<!--begin.rcode
+# MGMTMFE404-2 Corporate Finance and Risk Management
+# HW 4 (Finlset)
+# Hyeuk Jung (005259560)
+
+# Libraries
+options( warn = -1 )
+library(data.table)
+library(dplyr)
+library(xtable)
+
+# Report date information
+rdqinfo <- read.csv("rdqinfo.csv", header = T) %>% as.data.table; gc()
+rdq <- rdqinfo[which(fqtr == 4), c(1,2,12)]
+rdq[, datadate := as.Date(as.character(datadate), "%Y%m%d")]
+rdq[, rdq := as.Date(as.character(rdq), "%Y%m%d")]
+
+# Data
+df <- read.csv("data.csv", header = T) %>% as.data.table; gc()
+# Calculate cash flows and total debt amount
+df2 <- df %>% rowwise() %>% mutate(netcf = sum(fincf, ivncf, oancf, na.rm = T), 
+                                   fcf = ifelse(is.na(ni), 0, ni) + ifelse(is.na(dp), 0, dp) - 
+                                         ifelse(is.na(wcapch), 0, wcapch) - ifelse(is.na(capx), 0, capx),
+                                   totaldebt = sum(dlc, dltt, bast, na.rm = T)) %>% as.data.table
+#data <- gvkey, datadate, fyear, at, totaldebt, seq, ebit, ebitda, ni, netcf, fcf
+data <- df2[, c(1, 2, 3, 9, 28, 23, 17, 18, 21, 26, 27)]
+data[, datadate := as.Date(as.character(datadate), "%Y%m%d")]
+data <- data[complete.cases(data), ]
+data <- data[which(data[, "at"] != 0 & data[, "seq"] != 0), ] # delete rows if total asset or equity value is zero
+
+# merge data tables
+keycols = c("gvkey", "datadate")
+setkeyv(data, keycols)
+setkeyv(rdq, keycols)
+fin <-data[rdq]
+# Extract the year and month information / calculate leverage ratios
+fin <- fin %>% rowwise() %>% mutate(datayear = as.numeric(format(datadate,"%Y")),
+                                    datamonth = as.numeric(format(datadate,"%m")),
+                                    reportyear = as.numeric(format(rdq, "%Y")),
+                                    reportmonth = as.numeric(format(rdq, "%m")), 
+                                    td_ta = totaldebt/at, td_te = totaldebt/seq) %>% as.data.table
+
+# Filter 1. Match the year of the fiscal year and reported year -> year does not match, exclude o (the data are unavailable in the fyear)
+# Filter 2. If the reported date information is unavailable, consider the last month of the fiscal year -> If it's before Oct.1 include o
+finlset <- fin %>% group_by(datayear) %>% filter(datayear == reportyear | datamonth %in% 1:10) %>% 
+  summarise(EEBIT = mean(ebit, na.rm = T), EEBITDA = mean(ebitda, na.rm = T), ENI = mean(ni, na.rm = T), 
+            EnetCF = mean(netcf, na.rm = T), EFCF = mean(fcf, na.rm = T), ETD_TA = mean(td_ta, na.rm = T), ETD_TE = mean(td_te, na.rm = T))
+end.rcode-->
+        </div>
+        
+    </body>
+</html>

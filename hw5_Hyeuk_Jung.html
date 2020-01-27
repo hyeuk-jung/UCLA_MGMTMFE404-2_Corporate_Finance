@@ -1,0 +1,208 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+<style type="text/css">
+.knitr .inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.rimage .left {
+  text-align: left;
+}
+.rimage .right {
+  text-align: right;
+}
+.rimage .center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.str {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.std {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+        <title>hw5_Hyeuk_Jung.html</title>
+        <meta name="KEYWORDS" content="...">
+        <meta name="AUTHOR" content="Hyeuk Jung">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="hw.css">
+        <style>
+          table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 70%
+          }
+          td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+          }
+          tr:nth-child(even) {
+            background-color: #dddddd;
+          }
+        </style>
+    </head>
+
+    <body>
+        <div class="fluid-row" id="header">
+            <h1 class="title"> Project 5 - Reconciliation </h1>
+            <h4 class="author"><i> Hyeuk Jung </i></h4>
+            <h4 class="date"><i> February 19, 2019 </i></h4>
+        </div>
+
+        <div id="executive_summary">
+            <h2> Executive Summary </h2>
+                <p> In this project, we reconcile the previous projects - Event Studies and Annual Return Set - and find the differences in results. To examine the difference, we cross-checked raw data (e.g. variable, data period, etc.), conditions, and methodologies used on each project.
+                <br>Regarding the Event Studies project, Seungmin and I have obtained identical results, but there is slight difference in excess return due to using different variable for S&P500 index. Seungmin and I also have slight different results in Annual Return Set project due to data frequency and treatments of the delisted stocks and the NA values.
+                </p>
+        </div>  
+
+        <div id="key_statistics">
+            <h2> Tables and Figures </h2>
+            <h3> 1. Event Studies Reconciliation </h3>
+            <table border=1>
+              <thead> <th> </th> <th>date</th>  <th>permno</th> <th>Hyeuk_ret0</th> <th>Hyeuk_ex.ret0</th> <th>Seungmin_ret0</th> <th>Seungmin_ex.ret0</th> </thead>
+              <tr> <td>1:</td> <td>2010-01-14</td> <td>10104</td> <td>0.023790</td> <td>0.021363</td> <td>0.023790</td> <td>0.021445
+              <tr> <td>2:</td> <td>2010-04-12 </td> <td> 10104 </td> <td>  0.004592 </td> <td> 0.002825 </td> <td> 0.004592 </td> <td> 0.002754 </td> </tr>
+              <tr> <td>3:</td> <td>2010-07-12 </td> <td> 10104 </td> <td>  0.002567 </td> <td> 0.001834 </td> <td> 0.002567 </td> <td> 0.001672 </td> </tr>
+              <tr> <td>4:</td> <td>2010-10-04 </td> <td> 10104 </td> <td> -0.010465 </td> <td> -0.002430 </td> <td> -0.010465 </td> <td> -0.002015 </td> </tr>
+              <tr> <td>5:</td> <td>2011-01-14 </td> <td> 10104 </td> <td>  0.003688 </td> <td> -0.003697 </td> <td> 0.003688 </td> <td> -0.003484 </td> </tr>
+              <tr> <td>---</td> <td>          </td> <td>       </td> <td>           </td> <td>           </td> <td>          </td> <td> </td> </tr>
+              <tr> <td>13644:</td> <td>2018-03-19 </td> <td> 16538 </td> <td> -0.012408 </td> <td> 0.001796 </td> <td> -0.012408 </td> <td> 0.001759 </td> </tr>
+              <tr> <td>13645:</td> <td>2018-05-21 </td> <td> 16538 </td> <td> -0.001462 </td> <td> -0.008849 </td> <td> -0.001462 </td> <td> -0.008857 </td> </tr>
+              <tr> <td>13646:</td> <td>2017-11-14 </td> <td> 16851 </td> <td> -0.021431 </td> <td> -0.019121 </td> <td> -0.021431 </td> <td> -0.019275 </td> </tr>
+              <tr> <td>13647:</td> <td>2018-02-27 </td> <td> 16851 </td> <td> -0.017823 </td> <td> -0.005116 </td> <td> -0.017823 </td> <td> -0.005036 </td> </tr>
+              <tr> <td>13648:</td> <td>2018-05-30 </td> <td> 16851 </td> <td>  0.019237 </td> <td> 0.006541 </td> <td> 0.019237 </td> <td> 0.006505 </td> </tr>
+            </table>
+            
+            <h3> 2. Annual Return Set Reconciliation </h3>
+            <table border=1>
+              <thead> <th> </th> <th>PERMNO </th>  <th> date </th>  <th> year </th>  <th> Hyeuk_annret </th>  <th> Seungmin_cumRet </th> </thead>
+              <tr> <td>1: </td> <td> 10001 </td> <td> 2007-12-31 </td> <td> 2007 </td> <td>  0.33408949 </td> <td> 0.33408949 </td> </tr>
+              <tr> <td>2: </td> <td> 10001 </td> <td> 2008-12-31 </td> <td> 2008 </td> <td> -0.07820421 </td> <td> -0.05097374 </td> </tr>
+              <tr> <td>3: </td> <td> 10001 </td> <td> 2009-12-31 </td> <td> 2009 </td> <td>  0.32443534 </td> <td> 0.31052553 </td> </tr>
+              <tr> <td>4: </td> <td> 10001 </td> <td> 2010-12-31 </td> <td> 2010 </td> <td>  0.07399372 </td> <td> 0.12020290 </td> </tr>
+              <tr> <td>5: </td> <td> 10001 </td> <td> 2011-12-30 </td> <td> 2011 </td> <td>  0.13916314 </td> <td> 0.13283846 </td> </tr>
+              <tr> <td>6: </td> <td> 10001 </td> <td> 2012-12-31 </td> <td> 2012 </td> <td> -0.13937970 </td> <td> -0.10164595 </td> </tr>
+              <tr> <td>7: </td> <td> 10001 </td> <td> 2013-12-31 </td> <td> 2013 </td> <td> -0.09069384 </td> <td> -0.12442550 </td> </tr>
+              <tr> <td>8: </td> <td> 10001 </td> <td> 2014-12-31 </td> <td> 2014 </td> <td>  0.44274893 </td> <td> 0.28648546 </td> </tr>
+              <tr> <td>9: </td> <td> 10001 </td> <td> 2015-12-31 </td> <td> 2015 </td> <td> -0.28216527 </td> <td> -0.16977558 </td> </tr>
+              <tr> <td>10: </td> <td> 10001 </td> <td> 2016-12-30 </td> <td> 2016 </td> <td>  0.74063661 </td> <td> 0.59490543 </td> </tr>
+            </table>
+        </div>
+
+        <div id="report">
+            <h2> Report </h2>
+                <p> Key questions focusing on following point(s):
+                    <ol>
+                      <li> For Event Stuties project, merge the two data sets using PERM,YYYYMMDD,RET0 (rate of return at event day 0) and diagnose differences; and </li>
+                      <li> For Annual Return Set project, merge the two data sets and compare the results for the PERMNO's that begin with 100* </li>
+                    </ol>
+                </p>
+                <p> Results: 
+                    <ol>
+                      <li> Event Studies: 
+                      <br> Seungmin and I have the identical data for returns as we both were using the ex-dividend date for the event day. However, we have found slight difference in excess rate of returns. We were using different variables for S&P500 returns. While I was using the 'S&P 500's Composite Index return' from the CRSP, he was using the 'Value-weighted Returns' provided saparately in CRSP. After matching the S&P500 return variable, we would have complete identical data set.
+                      </li>
+                      <li> Annual Return Set:
+                      <br> While most of the data set showed similar results, some data points showed big mismatch. After reviewing the data manipulation processes, we found out three main differences of the following:
+                      <br> 1) Frequency of the data: I was using monthly data extracted from WRDS while Seungmin was using the daily data. With the compounding effect, we ended up with slight differences in the dataset.
+                      <br> 2) Treatments for NA values or inappropriate marks (eg. error marks done by WRDS): For NA values or error marks in the data set, I deleted the entire rows so that I can work with the complete data set. However, Seungmin approached differently. He kept the whole data set and filled in the data with the most probable data.
+                      <br> 3) Delisted stocks: While Seungmin was living the data as it is in the case of disappearance from the market, I annualized these returns. This treatment ended up with significant difference in certain cases.
+                      <br> After matching the data treatment, we expect to have similar results.
+                      </li>
+                    </ol>
+                </p>
+        </div>
+
+       <div id="code">
+            <h2> Computer code </h2>
+            <pre>
+#
+# MGMTMFE404-2 Corporate Finance and Risk Management
+# HW 5 (Reconciliation)
+# Hyeuk Jung (005259560)
+#
+
+# Libraries
+library(data.table)
+library(dplyr)
+library(xtable)
+library(xtable)
+
+##### HW 2 Reconciliation -------------------------
+hw2_hyeuk <- read.csv("hw2_perm_ret0_hyeuk.csv", header = T) %>% as.data.table; gc()
+hw2_seungmin <- read.csv("HW2ExData_SeungminHong.csv", header = T) %>% as.data.table; gc()
+
+hw2_recon <- merge(hw2_hyeuk[, c("date", "permno", "ret0", "ex.ret0")], hw2_seungmin[, c("date", "PERMNO", "RET", "ExRet")], 
+                   sort = F, by.x = c("date", "permno"), by.y = c("date", "PERMNO")) %>% 
+  setNames(nm =c("date", "permno", "Hyeuk_ret0", "Hyeuk_ex.ret0", "Seungmin_ret0", "Seungmin_ex.ret0")) #all.x = T,
+
+hw2_recon
+# Difference in ex.ret part due to different variable used for S&P500 (me: snprtn, Seungmin: S&P500 index )
+
+##### HW 3 Reconciliation -------------------------
+hw3_hyeuk <- read.csv("hw3_annretset_hyeuk.csv", header = T) %>% as.data.table; gc()
+hw3_seungmin <- read.csv("HW3ExData_SeungminHong.csv", header = T) %>% as.data.table; gc()
+hw3_recon <- merge(hw3_hyeuk[, c("PERMNO", "date", "year", "annret")], hw3_seungmin[, c("PERMNO", "date", "year", "cumRet")], 
+                   sort = F, by.x = c("PERMNO", "date", "year"), by.y = c("PERMNO", "date", "year")) %>% 
+  setNames(nm =c("PERMNO", "date", "year", "Hyeuk_annret", "Seungmin_cumRet")) #, all.x = T
+hw3_recon
+
+hw3_recon_result <- hw3_recon[which(hw3_recon$PERMNO >= 10000 & hw3_recon$PERMNO < 10100),  ]
+hw3_recon_result
+
+
+##### Print html tables ---------------------------
+#print(xtable(head(hw2_recon, 5)), type = "html")
+#print(xtable(tail(hw2_recon, 5)), type = "html")
+#print(xtable(head(hw3_recon, 5)), type = "html")
+#print(xtable(tail(hw3_recon, 5)), type = "html")
+            </pre>
+        
+    </body>
+</html>
